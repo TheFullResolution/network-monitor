@@ -5,9 +5,10 @@ project(network-monitor)
 # Dependencies
 # If dependencies are managed with conan, we set the CMake module path (where
 # CMake looks for dependencies) to the current build folder.
-if(EXISTS ${CMAKE_CURRENT_BINARY_DIR}/conaninfo.txt)
+if (EXISTS ${CMAKE_CURRENT_BINARY_DIR}/conaninfo.txt)
     set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_BINARY_DIR})
-endif()
+endif ()
+find_package(Boost 1.74 REQUIRED COMPONENTS system)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -17,4 +18,8 @@ add_executable(network-monitor ${SOURCES})
 target_compile_features(network-monitor
         PRIVATE
         cxx_std_11
+        )
+target_link_libraries(network-monitor
+        PRIVATE
+        Boost::Boost
         )
